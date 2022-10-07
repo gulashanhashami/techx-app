@@ -1,0 +1,137 @@
+.postsContainer{
+    width: 39%;
+
+    height: auto;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    /* border:1px solid red; */
+    margin: auto;
+}
+
+@media only screen and (max-width:500px){
+    .postsContainer{
+      width: 99%;
+       /* border: 1px solid red;  */
+    }
+}
+
+.postsContain1{
+    margin-top: 7vh;
+    overflow-y: scroll;
+    /* overflow-y: scroll; */
+    width: 99%;
+    height: 53vh;
+    /* border:1px solid blue; */
+}
+a{
+    text-decoration: none;
+}
+.cardDiv{
+    /* margin-top: 15vh; */
+    width: 99%;
+    margin-top: 2%;
+    /* border:1px solid green; */
+}
+.postHeader{
+    display: flex;
+    margin-top: 4%;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-right: 5%;
+    align-items: center;
+}
+.nameAndProfile{
+    width: 80%;
+    height: 9vh;
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-between; */
+    align-items: center;
+    padding-left: 2%;
+    gap: 5%;
+    /* border:1px solid green; */
+}
+.postProfilePicture{
+    width: 17%;
+    height: 100%;
+    border-radius: 50%;
+}
+.mainImageBox{
+    width: 90%;
+    /* height: 9vh; */
+    display: flex;
+    padding: 0;
+    flex-direction: column;
+    margin: auto;
+    /* border: 1px solid blue; */
+}
+.postImageBox{
+    width: 99%;
+    height: 90%;
+    padding: 0;
+    margin: auto;
+    /* border: 1px solid red; */
+    
+}
+.bottomBoxOfPost{
+    width: 99%;
+    height: 8vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+ 
+    border: .2vw solid gray;
+    border-radius: .5vw;
+}
+.heartIcon{
+    width: 33%;
+    border-right: 1px solid gray;
+}
+
+.titleBox{
+   display: flex;
+   margin-top: 13vh;
+   padding-top: 5%;
+   padding-left: 5%;
+   flex-direction: row;
+   align-items: flex-start;
+   text-align: left;
+}
+.headInputBox{
+    width: 92%;
+    margin-top: 5%;
+     color: black;
+     text-align: left;
+    margin-left: 2%;
+    padding-left: 3%;
+  border-radius: .5vw;
+    border: 1px solid blue;
+}
+.headInput{
+    width: 95%;
+    height: 9vh;
+    border: none;
+    outline: none;
+}
+.bottomBox{
+    width: 99.2%;
+    height: 10vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+ 
+    border: .2vw solid blue;
+    border-radius: .5vw;
+}
+.homeIcon{
+    width: 50%;
+    border-right: 1px solid gray;
+
+}
+.personIcon{
+    width: 50%;
+    border-left: 1px solid gray;
+}
+
+
