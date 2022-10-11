@@ -1,139 +1,138 @@
-
-.createContainer{
-    width: 39%;
-    height: auto;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    /* border:1px solid red; */
-    padding-bottom: 10%;
-    margin: auto;
+*{
+  font-family: sans-serif;
+}
+.createContainer {
+  width: 39%;
+  height: auto;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  /* border:1px solid red; */
+  padding-bottom: 10%;
+  margin: auto;
 }
 
-.createContain1{
-   
-    margin-top: 5vh;
-    width: 99%;
-    height: 99%;
-    /* border:1px solid blue; */
+.createContain1 {
+  margin-top: 5vh;
+  width: 99%;
+  height: 99%;
+  /* border:1px solid blue; */
 }
 
-.textBox{
-    width: 100%;
-    height: 15%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    border-bottom:.2vw solid gray;
+.textBox {
+  width: 100%;
+  height: 15%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: 0.2vw solid gray;
 }
-.writeYourTextBox{
-    width: 99%;
-    height: 30%; 
-    /* border: 1px solid red; */
+.writeYourTextBox {
+  width: 99%;
+  height: 30%;
+  /* border: 1px solid red; */
 }
-.writeYourText{
-    font-weight: 800;
-    font-size: 1.5vw;
-    margin-top: 7%;
-    width: 93%;
-    height: 20%;
-    border: none;
-    outline: none;
+.writeYourText {
+  font-weight: 800;
+  font-size: 1.5vw;
+  margin-top: 7%;
+  width: 93%;
+  height: 20%;
+  border: none;
+  outline: none;
 }
 
-.postReviewImageBox{
-    /* position: relative; */
-    width: 98%;
-    height: 35%;
-    display: flex;
-    flex-direction: column;
-    gap: 3vh;
-    margin: auto;
-    /* border: 1px solid red; */
+.postReviewImageBox {
+  /* position: relative; */
+  width: 98%;
+  height: 35%;
+  display: flex;
+  flex-direction: column;
+  gap: 3vh;
+  margin: auto;
+  /* border: 1px solid red; */
 }
-.reviewPotedImageBox{
-    width: 93%;
-    height: 33%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+.reviewPotedImageBox {
+  width: 93%;
+  height: 33%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   margin-left: 2%;
   border-radius: 2vw;
-    border: 1px solid blue;
+  border: 1px solid blue;
 }
-.imageAndTextforPostBox{
-    width: 80%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10%;
-    /* border: 1px solid red; */
+.imageAndTextforPostBox {
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10%;
+  /* border: 1px solid red; */
 }
-.ReviewPostImage{
-    width:50%;
-     height:12vh;
-     margin-left: 2%;
-      border-radius:2vw;
-      /* border: 1px solid red; */
-}
-
-.fileButtonBox{
-    width: 88%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    /* border: 1px solid green; */
-    margin: auto;
+.ReviewPostImage {
+  width: 50%;
+  height: 12vh;
+  margin-left: 2%;
+  border-radius: 2vw;
+  /* border: 1px solid red; */
 }
 
-.uploadFile{
-    width: 14vw;
-    height: 15vh;
-    border: 1px solid blue;
-    border-radius: .6vw;
-    cursor: pointer;
-    color: blue;
-    font-weight: 700;
-    font-size: 1.6vw; 
-}
-.inputForImage{
-    display: none;
-    width: 5vw;
-    /* border: 1px solid red; */
+.fileButtonBox {
+  width: 88%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* border: 1px solid green; */
+  margin: auto;
 }
 
+.uploadFile {
+  width: 14vw;
+  height: 15vh;
+  border: 1px solid blue;
+  border-radius: 0.6vw;
+  cursor: pointer;
+  color: blue;
+  font-weight: 700;
+  font-size: 1.6vw;
+}
+.inputForImage {
+  display: none;
+  width: 5vw;
+  /* border: 1px solid red; */
+}
 
-.createButtonBox{
-    width: 88.5%;
-    height: 10vh;
-    font-weight: 750;
-    /* font-size: 1.6vw;  */
-
-   
+.createButtonBox {
+  width: 88.5%;
+  height: 10vh;
+  font-weight: 750;
+  /* font-size: 1.6vw;  */
 }
-.PostButtonBox{
-    margin-top: 6%;
+.PostButtonBox {
+  margin-top: 25%;
+  /* border: 1px solid red; */
 }
-.cameraImage{
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    width: 99%;
-     height: 40vh;
-    bottom: 15vh;
-    margin: auto;
-    margin-top: 15vh;
-    /* border: 1px solid red; */
+.cameraImage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 99%;
+  height: 40vh;
+  bottom: 15vh;
+  margin: auto;
+  margin-top: 15vh;
+  /* border: 1px solid red; */
 }
-.setCamera{
-    position: relative;
-    width: 100%;
-    height: 100%;
-    border: 1px solid blue;
+.setCamera {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  /* border: 1px solid blue; */
 }
-.photoCaptureButton{
-    position: relative;
-    width: 70%;
-    font-size: 1.5vw;
-    font-weight: bold;
-    margin: auto;
+.photoCaptureButton {
+  position: relative;
+  width: 70%;
+  font-size: 1.5vw;
+  font-weight: bold;
+  margin: auto;
 }

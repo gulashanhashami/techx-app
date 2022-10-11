@@ -26,19 +26,24 @@ import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Popup } from "../popup/Popup";
+import { fontWeight } from "@mui/system";
 export const Posts = () => {
   const [allFinalpostData, setAllFinalpostData] = useState([]);
-const [heartReaction, setHeartReaction] =useState(false);
-const [count, setCount] = useState(null);
+  const [heartReaction, setHeartReaction] = useState(false);
+  const [count, setCount] = useState(null);
 
-const [smileReaction, setSmileReaction] =useState(false);
-const [count1, setCount1] = useState(null);
-const [thumbReaction, setThumbReaction] =useState(false);
-const [count2, setCount2] = useState(null);
+  const [reacs, setReacs] = useState([]);
+
+  const [heartcheck, setHeartcheck] = useState(false);
+  const [smileReaction, setSmileReaction] = useState(false);
+  const [count1, setCount1] = useState(null);
+  const [thumbReaction, setThumbReaction] = useState(false);
+  const [count2, setCount2] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [heart1, setHeart1] = useState([]);
   var dataCollection = collection(db, "posts");
   let navigate = useNavigate();
-  const prevHeartReaction=useRef();
+  const prevHeartReaction = useRef();
 
   useEffect(() => {
     getPostedData();
@@ -48,73 +53,59 @@ const [count2, setCount2] = useState(null);
     prevHeartReaction.current = count;
   }, [count]);
 
-  var preV=prevHeartReaction.current;
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const open = Boolean(anchorEl);
-  const idname = open ? "simple-popover" : "";
+  var preV = prevHeartReaction.current;
 
   //function for get all post
   async function getPostedData() {
     var res = await getDocs(dataCollection);
     setAllFinalpostData(res.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
   }
+
+  allFinalpostData.sort((a,b)=>b.time-a.time);
   // console.log(allFinalpostData);
 
-  // function for delete post
-  async function handleDeleteFunction(docItem) {
-    let confirm = window.confirm("Are you sure, you want to delete this post?");
-    if (confirm) {
-      var path = doc(dataCollection, docItem);
-      await deleteDoc(path);
-      window.location.reload();
-      getPostedData();
-    }
-  }
-  
   //code for home icon
   const goToTopOfPosts = () => {
     window.scrollTo(0, 0);
   };
 
-
   var usersData = JSON.parse(localStorage.getItem("userDetails"));
 
-  const countReaction=(itemId, heartCount)=>{
-    heartCount++;
-    console.log("heart",heartCount)
-    for(var i=0;i<allFinalpostData.length;i++){
-      if(allFinalpostData[i].id===itemId){
-        setCount(i);
-        // heartCount=heartCount+1;
+  const changeReactionColor = (itemId) => {
+    for (var i = 0; i < allFinalpostData.length; i++) {
+      if (allFinalpostData[i].id === itemId) {
+        setCount(allFinalpostData[i].id);
         setHeartReaction(!heartReaction);
+        // setCountHeartR((prev)=>prev+1)
       }
     }
-  }
-  const showSmileReaction=(itemId)=>{
-    for(var i=0;i<allFinalpostData.length;i++){
-      if(allFinalpostData[i].id===itemId){
+  };
+  // console.log(count)
+  const showSmileReaction = (itemId) => {
+    for (var i = 0; i < allFinalpostData.length; i++) {
+      if (allFinalpostData[i].id === itemId) {
         setCount1(i);
         setSmileReaction(!smileReaction);
       }
     }
-  }
-  const showThumbReaction=(itemId)=>{
-    for(var i=0;i<allFinalpostData.length;i++){
-      if(allFinalpostData[i].id===itemId){
+  };
+  const showThumbReaction = (itemId) => {
+    for (var i = 0; i < allFinalpostData.length; i++) {
+      if (allFinalpostData[i].id === itemId) {
         setCount2(i);
         setThumbReaction(!thumbReaction);
       }
     }
+  };
+  async function countReaction(itemId, emailId, itemHeart) {
+    // setHeart1(emailId)
+    var path = doc(dataCollection, itemId);
+    var editedObj = {
+      heart: [...itemHeart, emailId],
+      time: Date.now(),
+    };
+    await updateDoc(path, editedObj);
   }
-  // console.log("num",preV);
 
   return (
     <div className="postsContainer">
@@ -123,7 +114,7 @@ const [count2, setCount2] = useState(null);
       </div>
       <Link to={"/create"}>
         <div className="headInputBox">
-          <p>What's in your mind?</p>
+          <p style={{fontWeight:"800", color:"gray"}}>What's in your mind?</p>
         </div>
       </Link>
       <div className="postsContain1">
@@ -132,19 +123,32 @@ const [count2, setCount2] = useState(null);
             <div key={item.id} className="cardDiv">
               <div className="postHeader">
                 <div className="nameAndProfile">
-                  <img className="postProfilePicture" src={item.profilePic} referrerpolicy="no-referrer" alt="" />
-                 
-                  <p>{item.name}</p>
+                  <img
+                    className="postProfilePicture"
+                    src={item.profilePic}
+                    referrerpolicy="no-referrer"
+                    alt=""
+                  />
+
+                  <p style={{fontWeight:"800"}}>{item.name}</p>
                 </div>
                 {/* for post feed popup */}
-                {item.email === usersData.email ? (
-                  <Popup item={item} />) : ""}
-                 
+                {item.email === usersData.email ? <Popup item={item} /> : ""}
               </div>
-
-              <p style={{marginLeft:"5%", marginRight:"2%", textAlign:"left"}}>{item.postText}</p>
+               
+              <p
+                style={{
+                  marginLeft: "5%",
+                  marginRight: "2%",
+                  textAlign: "left",
+                }}
+              >
+                {item.postText.split(/#\w+/g)}
+              </p>
+              <span><p style={{color:"blue", fontWeight:"bold",  marginRight: "2%", marginLeft: "5%", textAlign:"left"}}>{item.tags}</p></span>
+              
               <div className="mainImageBox">
-                {item.imageData.map((imageItem, i) => {
+                {item.imageData&&item.imageData.map((imageItem, i) => {
                   return (
                     <div key={i} className="postImageBox">
                       <img width="100%" src={imageItem} alt="" />
@@ -152,36 +156,77 @@ const [count2, setCount2] = useState(null);
                   );
                 })}
               </div>
+
               <div className="bottomBoxOfPost">
                 <div className="heartIcon">
-                  <FavoriteIcon
-                  onClick={()=>{countReaction(item.id, item.heart); console.log(item.heart)}}
-                    style={{
-                      fontSize: "2.9vw",
-                      color: (count===index) && item.heart>=0 ? "blue" : "gray" ,
-                      cursor: "pointer",
-                    }}
-                  />
+                  <label for="checkbox_id" className="colorb">
+                    <div className="rectBox">
+                      <FavoriteIcon
+                        className="heartcon"
+                        // onClick={(e)=>{
+                        //   countReaction(item.id, usersData.email, item.heart);
+                        //   changeReactionColor(item.id)
+
+                        // }}
+                        style={{
+                          fontSize: "1.8vw",
+                        }}
+                      />
+
+                      <input
+                        type="checkbox"
+                        className="checkb"
+                        name="checkbox"
+                        id="checkbox_id"
+                        value="checked"
+                        onChange={(e) => setHeartcheck(e.target.checked)}
+                      />
+                    </div>
+                  </label>
                 </div>
                 <div className="heartIcon">
-                  <InsertEmoticonIcon
-                  onClick={()=>{showSmileReaction(item.id)}}
-                    style={{
-                      fontSize: "2.9vw",
-                      color: (count1===index) && (smileReaction) ? "blue" : "gray",
-                      cursor: "pointer",
-                    }}
-                  />
+                  <label for="checkbox_id1" className="colorb">
+                    <div className="rectBox">
+                      <InsertEmoticonIcon
+                        className="heartcon"
+                        // onClick={()=>{showSmileReaction(item.id)}}
+                        style={{
+                          fontSize: "1.8vw",
+                        }}
+                      />
+                      <input
+                        type="checkbox"
+                        className="checkb"
+                        name="checkbox"
+                        id="checkbox_id1"
+                        value="checked"
+                        onChange={(e) => setHeartcheck(e.target.checked)}
+                      />
+                    </div>
+                  </label>
                 </div>
                 <div className="heartIcon">
-                  <ThumbUpIcon
-                   onClick={()=>{showThumbReaction(item.id)}}
-                    style={{
-                      fontSize: "2.9vw",
-                      color: (count2===index) && (thumbReaction) ? "blue" : "gray",
-                      cursor: "pointer",
-                    }}
-                  />
+                  <label for="checkbox_id2" className="colorb">
+                    <div className="rectBox">
+                      <ThumbUpIcon
+                        className="heartcon"
+                        onClick={() => {
+                          showThumbReaction(item.id);
+                        }}
+                        style={{
+                          fontSize: "1.8vw",
+                        }}
+                      />
+                      <input
+                        type="checkbox"
+                        className="checkb"
+                        name="checkbox"
+                        id="checkbox_id2"
+                        value="checked"
+                        onChange={(e) => setHeartcheck(e.target.checked)}
+                      />
+                    </div>
+                  </label>
                 </div>
               </div>
             </div>

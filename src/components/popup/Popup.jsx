@@ -32,7 +32,7 @@ export const Popup = ({ item }) => {
 
   const open = Boolean(anchorEl);
   const idname = open ? "simple-popover" : "";
-  //function for get all post
+  //function for getting all post data
   async function getPostedData() {
     var res = await getDocs(dataCollection);
     setAllFinalpostData(res.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
@@ -52,8 +52,7 @@ export const Popup = ({ item }) => {
 
   sessionStorage.setItem("oneItemForEdit", JSON.stringify(item));
 
-  
-// console.log("item", item)
+  // console.log("item", item)
   return (
     <div>
       <Button aria-describedby={idname} onClick={handleClick}>
@@ -82,7 +81,6 @@ export const Popup = ({ item }) => {
         <Typography
           onClick={() => {
             handleDeleteFunction(item.id);
-           
           }}
           sx={{ p: 2 }}
           style={{ cursor: "pointer" }}
@@ -90,7 +88,6 @@ export const Popup = ({ item }) => {
           Delete Post
         </Typography>
       </Popover>
-     
     </div>
   );
 };
