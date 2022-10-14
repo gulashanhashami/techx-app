@@ -36,7 +36,6 @@ export const Popup = ({ item }) => {
   async function getPostedData() {
     var res = await getDocs(dataCollection);
     setAllFinalpostData(res.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    // console.log("postedData",res);
   }
 
   // function for delete post

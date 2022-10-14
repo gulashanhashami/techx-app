@@ -52,9 +52,7 @@ export const EditPost = ({ item }) => {
     // console.log("hello");
     handleDeleteImage.splice(imageIndex, 1);
     setHandleDeleteImage([...handleDeleteImage]);
-   
   };
-  // console.log("editData",editdataItem.id)
 
   // function for update post
   async function postEditedDataFunction() {
@@ -72,8 +70,8 @@ export const EditPost = ({ item }) => {
         time: Date.now(),
         heart: heart || editdataItem.heart,
         smile: smile || editdataItem.smile,
-        like:like || editdataItem.like,
-        tags:postText.match(/#\w+/g),
+        like: like || editdataItem.like,
+        tags: postText.match(/#\w+/g),
       };
       await updateDoc(path, editedDataObject);
       setPostText("");
@@ -95,7 +93,6 @@ export const EditPost = ({ item }) => {
       // window.location.reload();
     }
   }
-
 
   return (
     <>
@@ -177,29 +174,29 @@ export const EditPost = ({ item }) => {
               );
             })}
           </div>
-             {/* code for camera */}
-      <div className="editCameraImage">
-        {openCamera ? (
-          <>
-            <Webcam
-              videoConstraints={videoConstraints}
-              ref={webcamRef}
-              screenshotFormat="image/jpeg"
-              className="editSetCamera"
-            />
-            <button
-              onClick={() => {
-                capture();
-                setOpenCamera(false);
-              }}
-            >
-              Capture photo
-            </button>
-          </>
-        ) : (
-          ""
-        )}
-      </div>
+          {/* code for camera */}
+          <div className="editCameraImage">
+            {openCamera ? (
+              <>
+                <Webcam
+                  videoConstraints={videoConstraints}
+                  ref={webcamRef}
+                  screenshotFormat="image/jpeg"
+                  className="editSetCamera"
+                />
+                <button
+                  onClick={() => {
+                    capture();
+                    setOpenCamera(false);
+                  }}
+                >
+                  Capture photo
+                </button>
+              </>
+            ) : (
+              ""
+            )}
+          </div>
           <div className="editfileButtonBox">
             <label for="file-input">
               <div className="edituploadFile">

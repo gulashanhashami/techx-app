@@ -21,9 +21,9 @@ import { db } from "../../firebase";
 export const ProfilePage = () => {
   const [checked, setChecked] = useState(true);
   const [uploadedProfile, setUploadedProfile] = useState("");
-  const [postedData, setPostedData] =useState([])
+  const [postedData, setPostedData] = useState([]);
 
-  useEffect(()=>{
+  useEffect(() => {
     getPostedData();
   }, []);
 
@@ -33,13 +33,14 @@ export const ProfilePage = () => {
   var dataCollection = collection(db, "posts");
   let navigate = useNavigate();
 
-//function for get all post
-async function getPostedData() {
-  var res = await getDocs(dataCollection);
-  setPostedData(res.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-}
+  //function for get all post
+  async function getPostedData() {
+    var res = await getDocs(dataCollection);
+    setPostedData(res.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  }
 
   var usersData = JSON.parse(localStorage.getItem("userDetails"));
+  // function to handle profile pic upload
   async function handleChangeForEditProfileFile(e) {
     const file = e.target.files[0];
     const convertedFileInbase64 = await converfile(file);
@@ -60,26 +61,27 @@ async function getPostedData() {
     });
   };
 
-   async function updateProfileData() {
-    for(var i=0;i<postedData.length;i++){
-      if(postedData[i].email===usersData.email){
+  // code for update profile pic in database(firestore)
+  async function updateProfileData() {
+    for (var i = 0; i < postedData.length; i++) {
+      if (postedData[i].email === usersData.email) {
         var path = doc(dataCollection, postedData[i].id);
-    await updateDoc(path, {profilePic: uploadedProfile});
-      
+        await updateDoc(path, { profilePic: uploadedProfile });
 
-    localStorage.setItem('userDetails', JSON.stringify({
-      name: usersData.name,
-      email: usersData.email,
-      uid:   usersData.uid,
-       profilePic: uploadedProfile,
-    }));
-   
+        localStorage.setItem(
+          "userDetails",
+          JSON.stringify({
+            name: usersData.name,
+            email: usersData.email,
+            uid: usersData.uid,
+            profilePic: uploadedProfile,
+          })
+        );
+      }
     }
+    alert("Profile image updated successfully");
+    navigate("/posts");
   }
-  alert("Profile image updated successfully")
-  navigate("/posts")
-};
-  // console.log(postedData)
 
   return (
     <div>

@@ -29,9 +29,9 @@ export const CreatePost = ({ item }) => {
 
   const webcamRef = React.useRef(null);
   var dataCollection = collection(db, "posts");
-useEffect(()=>{
-  setPostPhoto(draftData&&draftData.imageData)
-}, [])
+  useEffect(() => {
+    setPostPhoto(draftData && draftData.imageData);
+  }, []);
   //function for handle file input
   async function handleChangeForFile(e) {
     const file = e.target.files[0];
@@ -63,16 +63,17 @@ useEffect(()=>{
     setPostPhoto([...postphoto, imageSrc]);
   }, [postphoto]);
 
-  var draftData=JSON.parse(localStorage.getItem("saveAsDraft"));
+  var draftData = JSON.parse(localStorage.getItem("saveAsDraft"));
   var usersData = JSON.parse(localStorage.getItem("userDetails"));
 
   const deleteReviewImage = (index) => {
     postphoto.splice(index, 1);
     setPostPhoto([...postphoto]);
-    localStorage.setItem("saveAsDraft",JSON.stringify({...draftData, imageData:postphoto}))
+    localStorage.setItem(
+      "saveAsDraft",
+      JSON.stringify({ ...draftData, imageData: postphoto })
+    );
   };
-
- 
 
   //  function for post the data in firestore
   async function postDataFunction() {
@@ -88,8 +89,8 @@ useEffect(()=>{
         time: Date.now(),
         heart: heart,
         smile: smile,
-        like:like,
-        tags:postText.match(/#\w+/g),
+        like: like,
+        tags: postText.match(/#\w+/g),
       };
 
       await addDoc(dataCollection, dataObject);
@@ -102,34 +103,32 @@ useEffect(()=>{
   }
 
   //function for draft functionality
-  const addtoDraft=()=>{
+  const addtoDraft = () => {
     let confirm = window.confirm("Are you sure, you want to save as draft?");
     if (confirm) {
-    var dataObject = {
-      name: usersData.name,
-      email: usersData.email,
-      profilePic: usersData.profilePic,
-      uid: usersData.uid,
-      postText: postText || draftData.postText ,
-      imageData: postphoto,
-      time: Date.now(),
-      heart: heart,
-      smile: smile,
-      like:like,
-      tags:postText.match(/#\w+/g),
-    };
-   
-  
-    setTimeout(()=>{
-      localStorage.setItem("saveAsDraft", JSON.stringify(dataObject))//for creating draft
-      alert("Successfully added to the draft");
-     navigate("/posts");
-    }, 1000)
-  }else{
-    navigate("/posts");
-  }
-}
+      var dataObject = {
+        name: usersData.name,
+        email: usersData.email,
+        profilePic: usersData.profilePic,
+        uid: usersData.uid,
+        postText: postText || draftData.postText,
+        imageData: postphoto,
+        time: Date.now(),
+        heart: heart,
+        smile: smile,
+        like: like,
+        tags: postText.match(/#\w+/g),
+      };
 
+      setTimeout(() => {
+        localStorage.setItem("saveAsDraft", JSON.stringify(dataObject)); //for creating draft
+        alert("Successfully added to the draft");
+        navigate("/posts");
+      }, 1000);
+    } else {
+      navigate("/posts");
+    }
+  };
 
   return (
     <>
@@ -165,64 +164,65 @@ useEffect(()=>{
             </span>
           </div>
           <div className="writeYourTextBox">
-            {(draftData?.postText) ? (
-            <input
-              name="textData"
-              className="writeYourText"
-              type="text"
-              defaultValue={draftData.postText}
-              placeholder="What's in your mind?"
-              onChange={(e) => setPostText(e.target.value)}
-            />
+            {draftData?.postText ? (
+              <input
+                name="textData"
+                className="writeYourText"
+                type="text"
+                defaultValue={draftData.postText}
+                placeholder="What's in your mind?"
+                onChange={(e) => setPostText(e.target.value)}
+              />
             ) : (
               <input
-              name="textData"
-              className="writeYourText"
-              type="text"
-              placeholder="What's in your mind?"
-              onChange={(e) => setPostText(e.target.value)}
-            />
+                name="textData"
+                className="writeYourText"
+                type="text"
+                placeholder="What's in your mind?"
+                onChange={(e) => setPostText(e.target.value)}
+              />
             )}
           </div>
           <div className="postReviewImageBox">
-            {postphoto&&postphoto.map((postImageItem, reviewImageIndex) => {
-              return (
-                <div key={reviewImageIndex} className="reviewPotedImageBox">
-                  <div className="imageAndTextforPostBox">
-                    <img
-                      className="ReviewPostImage"
-                      src={postImageItem}
-                      alt=""
-                    />
-                    <p
+            {postphoto &&
+              postphoto.map((postImageItem, reviewImageIndex) => {
+                return (
+                  <div key={reviewImageIndex} className="reviewPotedImageBox">
+                    <div className="imageAndTextforPostBox">
+                      <img
+                        className="ReviewPostImage"
+                        src={postImageItem}
+                        alt=""
+                      />
+                      <p
+                        style={{
+                          fontSize: "1.7vw",
+                          fontWeight: "bold",
+                          color: "gray",
+                        }}
+                      >
+                        Media {reviewImageIndex + 1}
+                      </p>
+                    </div>
+                    <span
                       style={{
-                        fontSize: "1.7vw",
-                        fontWeight: "bold",
-                        color: "gray",
+                        marginRight: "7%",
+                        color: "blue",
+                        fontSize: "2.5vw",
+                        cursor: "pointer",
                       }}
                     >
-                      Media {reviewImageIndex + 1}
-                    </p>
+                      <p
+                        onClick={() => {
+                          deleteReviewImage(reviewImageIndex);
+                        }}
+                      >
+                        X
+                      </p>
+                    </span>
                   </div>
-                  <span
-                    style={{
-                      marginRight: "7%",
-                      color: "blue",
-                      fontSize: "2.5vw",
-                      cursor: "pointer",
-                    }}
-                  >
-                    <p
-                      onClick={() => {
-                        deleteReviewImage(reviewImageIndex);
-                      }}
-                    >
-                      X
-                    </p>
-                  </span>
-                </div>
-              );
-            })}
+                );
+              })}
           </div>
           {/* code for web camera */}
           <div className="cameraImage">

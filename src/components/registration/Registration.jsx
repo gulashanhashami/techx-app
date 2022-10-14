@@ -53,9 +53,6 @@ export const Registration = () => {
       });
   };
 
-  // const logoutFunction=()=>{
-  //    firebase.auth().signOut();
-  // }
 
   return (
     <div className="container">
@@ -95,7 +92,6 @@ export const Registration = () => {
             LOG IN WITH GOOGLE
           </Button>
         </div>
-        {/* <button onClick={logoutFunction}>logout</button> */}
       </div>
     </div>
   );
