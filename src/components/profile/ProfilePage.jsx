@@ -73,11 +73,13 @@ async function getPostedData() {
       uid:   usersData.uid,
        profilePic: uploadedProfile,
     }));
-    // window.location.reload();
-       }
+   
     }
+  }
+  alert("Profile image updated successfully")
+  navigate("/posts")
 };
-  console.log(postedData)
+  // console.log(postedData)
 
   return (
     <div>

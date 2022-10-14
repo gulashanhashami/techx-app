@@ -2,7 +2,7 @@
   font-family: sans-serif;
 }
 .postsContainer {
-  width: 39%;
+  width: 45%;
 
   height: auto;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -36,7 +36,7 @@ a {
 }
 .postHeader {
   display: flex;
-  margin-top: 24%;
+  margin-top: 8%;
   flex-direction: row;
   justify-content: space-between;
   padding-right: 5%;
@@ -54,7 +54,7 @@ a {
   /* border:1px solid green; */
 }
 .postProfilePicture {
-  width: 17%;
+  width: 14%;
   height: 100%;
   border-radius: 50%;
 }
@@ -80,7 +80,7 @@ a {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-
+  padding: 1%;
   border: 0.2vw solid gray;
   border-radius: 0.5vw;
 }
@@ -139,7 +139,7 @@ a {
 
   display: flex;
   left: -20px;
-  top: -5px;
+  top: -.5px;
   justify-content: center;
   align-items: center;
 }
@@ -151,6 +151,7 @@ input[type="checkbox"] {
   width: 35px;
   background-color: rgb(177, 166, 166);
   border-radius: 50%;
+  /* border: 1px solid blue; */
 }
 input[type="checkbox"]:checked {
   background-color: #1976d2;

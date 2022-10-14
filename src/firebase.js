@@ -1,12 +1,14 @@
 
 // Import the functions you need from the SDKs you need
+
 import firebase from 'firebase/compat/app';
-// import 'firebase/compat/firestore';
-// import 'firebase/compat/auth';
 import { initializeApp } from "firebase/app";
 
+
 import {getAuth} from "firebase/auth";
-import { getFirestore } from "@firebase/firestore"
+import { getFirestore } from "@firebase/firestore";
+import { getMessaging, getToken} from "firebase/messaging";
+
 const firebaseConfig = {
   apiKey: "AIzaSyAnYha1sCm0LSUtUtN4jK_VpwZ1MdFrhEg",
   authDomain: "techx-e7500.firebaseapp.com",
@@ -18,7 +20,34 @@ const firebaseConfig = {
 
 // Initialize Firebase
  const app = initializeApp(firebaseConfig);
-// const analytics = getAnalytics(app);
+ export  const messaging=getMessaging(app);
+//  export const token = getToken(app);
+
 export const authen= getAuth(app);
 export const db = getFirestore(app);
+// async function requestPermission() {
+//   console.log('Requesting permission...');
+//   Notification.requestPermission().then((permission) => {
+//     if (permission === 'granted') {
+//       console.log('Notification permission granted.');
+//       getToken(messaging, { vapidKey: "AIzaSyAnYha1sCm0LSUtUtN4jK_VpwZ1MdFrhEg"}).then((currentToken) => {
+//         console.log("hello")
+//         if (currentToken) {
+//           console.log("token",currentToken)
+//           // Send the token to your server and update the UI if necessary
+//           // ...
+//         } else {
+//           // Show permission request UI
+//           console.log('No registration token available. Request permission to generate one.');
+//           // ...
+//         }
+//       }).catch((err) => {
+//         console.log('An error occurred while retrieving token. ', err);
+//         // ...
+//       });
+//     }
+//   })
+// // }
+
+
 export {firebase};

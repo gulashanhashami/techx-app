@@ -8,8 +8,12 @@ import {
   deleteDoc,
   doc,
   getDocs,
+  onSnapshot,
+  orderBy,
+  query,
   updateDoc,
 } from "firebase/firestore";
+import addNotification from 'react-push-notification';
 import { async } from "@firebase/util";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
@@ -29,31 +33,36 @@ import { Popup } from "../popup/Popup";
 import { fontWeight } from "@mui/system";
 export const Posts = () => {
   const [allFinalpostData, setAllFinalpostData] = useState([]);
-  const [heartReaction, setHeartReaction] = useState(false);
-  const [count, setCount] = useState(null);
+  // const [heartReaction, setHeartReaction] = useState(false);
+  // const [count, setCount] = useState(null);
 
-  const [reacs, setReacs] = useState([]);
+  // const [reacs, setReacs] = useState([]);
 
   const [heartcheck, setHeartcheck] = useState(false);
-  const [smileReaction, setSmileReaction] = useState(false);
-  const [count1, setCount1] = useState(null);
-  const [thumbReaction, setThumbReaction] = useState(false);
-  const [count2, setCount2] = useState(null);
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [heart1, setHeart1] = useState([]);
+  // const [smileReaction, setSmileReaction] = useState(false);
+  // const [count1, setCount1] = useState(null);
+  // const [thumbReaction, setThumbReaction] = useState(false);
+  // const [count2, setCount2] = useState(null);
+  // const [anchorEl, setAnchorEl] = useState(null);
+  // const [heart1, setHeart1] = useState([]);
+  const [allNotificationData, setAllNotificationData]= useState({});
   var dataCollection = collection(db, "posts");
   let navigate = useNavigate();
-  const prevHeartReaction = useRef();
+  // const prevHeartReaction = useRef();
 
   useEffect(() => {
     getPostedData();
+    // getNotificationData();
   }, []);
+  
 
-  useEffect(() => {
-    prevHeartReaction.current = count;
-  }, [count]);
+  // useEffect(() => {
+  //   prevHeartReaction.current = count;
+  // }, [count]);
 
-  var preV = prevHeartReaction.current;
+  // var preV = prevHeartReaction.current;
+  var dataCollectionNotification = collection(db, "notification");
+  const orderTimeQuery=query(dataCollectionNotification, orderBy("time"));
 
   //function for get all post
   async function getPostedData() {
@@ -70,42 +79,88 @@ export const Posts = () => {
   };
 
   var usersData = JSON.parse(localStorage.getItem("userDetails"));
+  // console.lo
 
-  const changeReactionColor = (itemId) => {
-    for (var i = 0; i < allFinalpostData.length; i++) {
-      if (allFinalpostData[i].id === itemId) {
-        setCount(allFinalpostData[i].id);
-        setHeartReaction(!heartReaction);
-        // setCountHeartR((prev)=>prev+1)
-      }
-    }
-  };
+  // const changeReactionColor = (itemId) => {
+  //   for (var i = 0; i < allFinalpostData.length; i++) {
+  //     if (allFinalpostData[i].id === itemId) {
+  //       setCount(allFinalpostData[i].id);
+  //       setHeartReaction(!heartReaction);
+  //       // setCountHeartR((prev)=>prev+1)
+  //     }
+  //   }
+  // };
   // console.log(count)
-  const showSmileReaction = (itemId) => {
-    for (var i = 0; i < allFinalpostData.length; i++) {
-      if (allFinalpostData[i].id === itemId) {
-        setCount1(i);
-        setSmileReaction(!smileReaction);
-      }
-    }
-  };
-  const showThumbReaction = (itemId) => {
-    for (var i = 0; i < allFinalpostData.length; i++) {
-      if (allFinalpostData[i].id === itemId) {
-        setCount2(i);
-        setThumbReaction(!thumbReaction);
-      }
-    }
-  };
-  async function countReaction(itemId, emailId, itemHeart) {
-    // setHeart1(emailId)
-    var path = doc(dataCollection, itemId);
-    var editedObj = {
-      heart: [...itemHeart, emailId],
-      time: Date.now(),
-    };
-    await updateDoc(path, editedObj);
+  // const showSmileReaction = (itemId) => {
+  //   for (var i = 0; i < allFinalpostData.length; i++) {
+  //     if (allFinalpostData[i].id === itemId) {
+  //       setCount1(i);
+  //       setSmileReaction(!smileReaction);
+  //     }
+  //   }
+  // };
+  // const showThumbReaction = (itemId) => {
+  //   for (var i = 0; i < allFinalpostData.length; i++) {
+  //     if (allFinalpostData[i].id === itemId) {
+  //       setCount2(i);
+  //       setThumbReaction(!thumbReaction);
+  //     }
+  //   }
+  // };
+  // async function countReaction(itemId, emailId, itemHeart) {
+  //   // setHeart1(emailId)
+  
+  //   var path = doc(dataCollection, itemId);
+  //   var editedObj = {
+  //     heart: [...itemHeart, emailId],
+  //     time: Date.now(),
+  //   };
+  //   await updateDoc(path, editedObj);
+  // }
+
+   async function addForNotification(receiverUid){
+       console.log("hello", receiverUid)
+         var objNotification={
+                receiverId: receiverUid,
+                senderId: usersData.uid,
+                text : "reacted on your post",
+                senderName: usersData.name,
+                time: Date.now(),
+         }
+         await addDoc(dataCollectionNotification, objNotification);
   }
+
+  // async function getNotificationData() {
+  //   // var res = await onSnapshot(dataCollectionNotification);
+  //   // setAllNotificationData(res.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  //   // const colRef = collection(db, "data")
+  //   //real time update
+  //   onSnapshot(orderTimeQuery, (snapshot) => {
+     
+  //       snapshot.docs.forEach((doc) => {
+  //           // console.log("onsnapshot", doc.data());
+  //           setAllNotificationData( doc.data());
+          
+  //       })
+       
+  //   })
+   
+  // }
+  // allNotificationData.sort((a, b)=>b.time-a.time)
+  
+//   function showNotification(){
+//   addNotification({
+//     title: 'TechX Notification',
+//     subtitle: allNotificationData.senderName,
+//     message: allNotificationData.senderName+" "+allNotificationData.text,
+//     native: true // when using native, your OS will handle theming.
+// });
+//   }
+//   // console.log(allNotificationData.receiverId===usersData.uid)
+//   if(allNotificationData.receiverId===usersData.uid){
+//     showNotification();
+//     }
+// console.log("noti",allNotificationData);
 
   return (
     <div className="postsContainer">
@@ -126,10 +181,9 @@ export const Posts = () => {
                   <img
                     className="postProfilePicture"
                     src={item.profilePic}
-                    referrerpolicy="no-referrer"
                     alt=""
                   />
-
+                   {console.log(Math.floor((Date.now()-(item.time))/1000/60/60))}
                   <p style={{fontWeight:"800"}}>{item.name}</p>
                 </div>
                 {/* for post feed popup */}
@@ -139,6 +193,7 @@ export const Posts = () => {
               <p
                 style={{
                   marginLeft: "5%",
+                  marginTop: "7%",
                   marginRight: "2%",
                   textAlign: "left",
                 }}
@@ -160,14 +215,12 @@ export const Posts = () => {
               <div className="bottomBoxOfPost">
                 <div className="heartIcon">
                   <label for="checkbox_id" className="colorb">
-                    <div className="rectBox">
+                    <div className="rectBox"  onClick={()=>{
+                        addForNotification(item.uid);
+                      }}>
                       <FavoriteIcon
+                      
                         className="heartcon"
-                        // onClick={(e)=>{
-                        //   countReaction(item.id, usersData.email, item.heart);
-                        //   changeReactionColor(item.id)
-
-                        // }}
                         style={{
                           fontSize: "1.8vw",
                         }}
@@ -186,7 +239,9 @@ export const Posts = () => {
                 </div>
                 <div className="heartIcon">
                   <label for="checkbox_id1" className="colorb">
-                    <div className="rectBox">
+                    <div className="rectBox"  onClick={()=>{
+                        addForNotification(item.uid);
+                      }}>
                       <InsertEmoticonIcon
                         className="heartcon"
                         // onClick={()=>{showSmileReaction(item.id)}}
@@ -207,12 +262,14 @@ export const Posts = () => {
                 </div>
                 <div className="heartIcon">
                   <label for="checkbox_id2" className="colorb">
-                    <div className="rectBox">
+                    <div className="rectBox"  onClick={()=>{
+                        addForNotification(item.uid);
+                      }}>
                       <ThumbUpIcon
                         className="heartcon"
-                        onClick={() => {
-                          showThumbReaction(item.id);
-                        }}
+                        // onClick={() => {
+                        //   showThumbReaction(item.id);
+                        // }}
                         style={{
                           fontSize: "1.8vw",
                         }}
