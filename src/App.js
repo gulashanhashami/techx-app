@@ -53,7 +53,7 @@ function App() {
     });
   }
   useEffect(() => {
-    if (allNotificationData.receiverId === usersData.uid) {
+    if (allNotificationData.receiverId === allNotificationData.senderId) {
       showNotification();
     }
   }, [allNotificationData.time]);

@@ -25,29 +25,6 @@ const firebaseConfig = {
 
 export const authen= getAuth(app);
 export const db = getFirestore(app);
-// async function requestPermission() {
-//   console.log('Requesting permission...');
-//   Notification.requestPermission().then((permission) => {
-//     if (permission === 'granted') {
-//       console.log('Notification permission granted.');
-//       getToken(messaging, { vapidKey: "AIzaSyAnYha1sCm0LSUtUtN4jK_VpwZ1MdFrhEg"}).then((currentToken) => {
-//         console.log("hello")
-//         if (currentToken) {
-//           console.log("token",currentToken)
-//           // Send the token to your server and update the UI if necessary
-//           // ...
-//         } else {
-//           // Show permission request UI
-//           console.log('No registration token available. Request permission to generate one.');
-//           // ...
-//         }
-//       }).catch((err) => {
-//         console.log('An error occurred while retrieving token. ', err);
-//         // ...
-//       });
-//     }
-//   })
-// // }
 
 
 export {firebase};

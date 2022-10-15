@@ -136,7 +136,6 @@ a {
 }
 .rectBox {
   position: relative;
-
   display: flex;
   left: -20px;
   top: -.5px;
@@ -147,8 +146,8 @@ a {
 input[type="checkbox"] {
   appearance: none;
   cursor: pointer;
-  height: 35px;
-  width: 35px;
+  height: 47px;
+  width: 47px;
   background-color: rgb(177, 166, 166);
   border-radius: 50%;
   /* border: 1px solid blue; */
@@ -160,4 +159,12 @@ input[type="checkbox"]:checked {
   position: absolute;
 
   color: white;
+}
+.nameTimeDiv{
+  height: 10vh;
+  display: flex;
+  line-height: 0px;
+  flex-direction: column;
+  /* border: 1px solid blue; */
+  align-items: flex-start;
 }

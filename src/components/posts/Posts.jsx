@@ -64,7 +64,7 @@ export const Posts = () => {
   var usersData = JSON.parse(localStorage.getItem("userDetails"));
 
   async function addForNotification(receiverUid) {
-    console.log("hello", receiverUid);
+    // console.log("hello", receiverUid);
     var objNotification = {
       receiverId: receiverUid,
       senderId: usersData.uid,
@@ -98,10 +98,30 @@ export const Posts = () => {
                     src={item.profilePic}
                     alt=""
                   />
-                  {console.log(
-                    Math.floor((Date.now() - item.time) / 1000 / 60 / 60)
-                  )}
+                    <div className="nameTimeDiv">
                   <p style={{ fontWeight: "800" }}>{item.name}</p>
+                  {Math.floor((Date.now() - item.time) / 1000 / 60 / 60) >=
+                  24 ? (
+                    <p>
+                      {Math.floor(
+                        (Date.now() - item.time) / 1000 / 60 / 60 / 12
+                      )}{" "}
+                      day ago
+                    </p>
+                  ) : Math.floor((Date.now() - item.time) / 1000 / 60 / 60) >=
+                    1 ? (
+                    <p>
+                      {Math.floor((Date.now() - item.time) / 1000 / 60 / 60)} hr
+                      ago
+                    </p>
+                  ) : Math.floor((Date.now() - item.time) / 1000 / 60) >= 1 ? (
+                    <p>
+                      {Math.floor((Date.now() - item.time) / 1000 / 60)} min ago
+                    </p>
+                  ) : (
+                    <p>{Math.floor((Date.now() - item.time) / 1000)} sec ago</p>
+                  )}
+                  </div>
                 </div>
                 {/* for post feed popup */}
                 {item.email === usersData.email ? <Popup item={item} /> : ""}
