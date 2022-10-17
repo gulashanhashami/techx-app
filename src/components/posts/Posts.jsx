@@ -174,7 +174,7 @@ export const Posts = () => {
                       <FavoriteIcon
                         className="heartcon"
                         style={{
-                          fontSize: "1.8vw",
+                          fontSize: "25px",
                         }}
                       />
 
@@ -200,7 +200,7 @@ export const Posts = () => {
                       <InsertEmoticonIcon
                         className="heartcon"
                         style={{
-                          fontSize: "1.8vw",
+                          fontSize: "25px",
                         }}
                       />
                       <input
@@ -225,7 +225,7 @@ export const Posts = () => {
                       <ThumbUpIcon
                         className="heartcon"
                         style={{
-                          fontSize: "1.8vw",
+                          fontSize: "25px",
                         }}
                       />
                       <input

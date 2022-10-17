@@ -18,7 +18,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../../firebase";
-export const ProfilePage = () => {
+export const ProfilePage = ({setSwitchButton}) => {
   const [checked, setChecked] = useState(true);
   const [uploadedProfile, setUploadedProfile] = useState("");
   const [postedData, setPostedData] = useState([]);
@@ -30,6 +30,8 @@ export const ProfilePage = () => {
   const handleChange = (event) => {
     setChecked(event.target.checked);
   };
+  // console.log("switch",checked)
+  setSwitchButton(checked);
   var dataCollection = collection(db, "posts");
   let navigate = useNavigate();
 

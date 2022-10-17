@@ -24,6 +24,7 @@ import {
 } from "firebase/firestore";
 import addNotification from "react-push-notification";
 function App() {
+  const [switchButton, setSwitchButton]= useState(false);
   useEffect(() => {
     getNotificationData();
   }, []);
@@ -53,11 +54,11 @@ function App() {
     });
   }
   useEffect(() => {
-    if (allNotificationData.receiverId === allNotificationData.senderId) {
+    if (allNotificationData.receiverId === allNotificationData.senderId && switchButton) {
       showNotification();
     }
   }, [allNotificationData.time]);
-  console.log("noti", allNotificationData);
+  console.log("swtch", switchButton);
 
   return (
     <div className="App">
@@ -65,7 +66,7 @@ function App() {
         <Route path="/" element={<Registration />} />
         <Route path="/posts" element={<Posts />} />
         <Route path="/create" element={<CreatePost />} />
-        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/profile" element={<ProfilePage setSwitchButton={setSwitchButton} />} />
         <Route path="/editpost" element={<EditPost />} />
       </Routes>
     </div>
